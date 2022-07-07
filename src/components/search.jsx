@@ -12,7 +12,7 @@ class Search extends React.Component {
     return (
       <div>
         <input />
-        { listProducts.length > 0 ? <h1>teste</h1> : (
+        { listProducts.length > 0 ? <h1>teste!</h1> : (
           <h1 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h1>) }
