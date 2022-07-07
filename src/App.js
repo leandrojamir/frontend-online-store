@@ -1,15 +1,14 @@
 import React from 'react';
-import { Route } from "react-router-dom";
-import Search from "./components/search";
-import { BrowserRouter } from "react-router-dom"; 
+import { Route, BrowserRouter } from 'react-router-dom';
+import Search from './components/search';
 
 class App extends React.Component {
   render() {
-    return( 
+    return (
       <BrowserRouter>
-        <Route exact path="/" component={ Search } /> 
+        <Route exact path="/" component={ Search } />
       </BrowserRouter>
-    )
+    );
   }
 }
 
