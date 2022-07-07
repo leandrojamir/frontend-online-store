@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
-import Search from './components/Search';
+import Search from './components/search';
 
 class App extends React.Component {
   render() {
