@@ -41,7 +41,9 @@ class Search extends React.Component {
           <h1 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h1>) }
-        { listProducts.length > 0 ? (
+        { listProducts.length === 0 && searches !== 0 && (
+          <h1>Nenhum produto foi encontrado</h1>) }
+        { listProducts.length > 0 && (
           listProducts.map(({ id, price, title, thumbnail }) => (
             <div data-testid="product" key={ id }>
               <img src={ thumbnail } alt={ title } />
@@ -49,7 +51,7 @@ class Search extends React.Component {
               <span>{ price }</span>
             </div>
           ))
-        ) : <h1>Nenhum produto foi encontrado</h1> }
+        ) }
         <Link data-testid="shopping-cart-button" to="/cart">
           Carrinho
         </Link>
