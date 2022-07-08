@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Category from './category';
@@ -40,6 +41,7 @@ class Search extends React.Component {
 
   render() {
     const { listProducts, searches } = this.state;
+    const { addToCart } = this.props;
 
     return (
       <div>
@@ -64,6 +66,13 @@ class Search extends React.Component {
               <img src={ thumbnail } alt={ title } />
               <span>{ title }</span>
               <span>{ price }</span>
+              <button
+                type="button"
+                data-testid="product-add-to-cart"
+                onClick={ () => addToCart({ title, id }) }
+              >
+                Adicionar ao Carrinho
+              </button>
             </div>
           ))
         ) }
@@ -74,5 +83,9 @@ class Search extends React.Component {
     );
   }
 }
+
+Search.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+};
 
 export default Search;
