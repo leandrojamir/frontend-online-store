@@ -22,7 +22,11 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Route exact path="/" render={ () => <Search addToCart={ this.addToCart } /> } />
-        <Route path="/cart" render={ () => <ShoppingCart cart={ cart } /> } />
+        <Route
+          path="/cart"
+          render={ () => (
+            <ShoppingCart cart={ cart } addToCart={ this.addToCart } />) }
+        />
       </BrowserRouter>
     );
   }
