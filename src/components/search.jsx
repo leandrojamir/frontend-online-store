@@ -1,11 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import Category from './category';
 
 class Search extends React.Component {
   constructor() {
     super();
-    this.state = { listProducts: [], query: '', searches: 0 };
+    this.state = {
+      listProducts: [],
+      // listCategory: [],
+      query: '',
+      searches: 0,
+    };
   }
 
   handleChange = ({ target }) => {
@@ -13,6 +19,14 @@ class Search extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleClick = async ({ target }) => {
+    const { results } = await getProductsFromCategoryAndQuery(target.id, '');
+    this.setState(({ searches }) => ({
+      listProducts: results,
+      searches: searches + 1,
+    }));
   }
 
   fetchProducts = async () => {
@@ -29,6 +43,7 @@ class Search extends React.Component {
 
     return (
       <div>
+        <Category handleClick={ this.handleClick } />
         <input data-testid="query-input" name="query" onChange={ this.handleChange } />
         <button
           type="button"
