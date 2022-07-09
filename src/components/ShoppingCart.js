@@ -18,11 +18,11 @@ class ShoppingCart extends React.Component {
   // exemplo const newState = state.filter((data) => data.id !== id)
   // se quebrar a pagina, comenta da linha 21 a 25 e alinha 43
 
-  removeCart = () => {
-    const { cart } = this.props;
-    const products = cart.filter((data) => data.title !== title);
-    return (products.length > 0) ? products : cart;
-  }
+  // removeCart = () => {
+  //   const { cart } = this.props;
+  //   const products = cart.filter((data) => data.title !== title);
+  //   return (products.length > 0) ? products : cart;
+  // }
 
   render() {
     const { cart, addToCart } = this.props;
@@ -40,7 +40,7 @@ class ShoppingCart extends React.Component {
               { this.countProducts(id) }
             </p>
             <button
-              onClick={ () => (removeCart({ title })) }
+              // onClick={ () => (removeCart({ title })) }
               id={ id }
               data-testid="product-decrease-quantity"
               type="button"
