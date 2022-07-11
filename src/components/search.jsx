@@ -61,30 +61,33 @@ class Search extends React.Component {
         { listProducts.length === 0 && searches !== 0 && (
           <h1>Nenhum produto foi encontrado</h1>) }
         { listProducts.length > 0 && (
-          listProducts.map(({ id, price, title, thumbnail }) => (
-            <div key={ id }>
-              <Link
-                data-testid="product-detail-link"
-                to={ {
-                  pathname: `/detailedProduct/${id}`,
-                  search: title,
-                } }
-              >
-                <div data-testid="product">
-                  <img src={ thumbnail } alt={ title } />
-                  <span>{ title }</span>
-                  <span>{ price }</span>
-                </div>
-              </Link>
-              <button
-                type="button"
-                data-testid="product-add-to-cart"
-                onClick={ () => addToCart({ title, id }) }
-              >
-                Adicionar ao Carrinho
-              </button>
-            </div>
-          ))
+          listProducts.map((prod) => {
+            const { id, price, title, thumbnail } = prod;
+            return (
+              <div key={ id }>
+                <Link
+                  data-testid="product-detail-link"
+                  to={ {
+                    pathname: `/detailedProduct/${id}`,
+                    search: title,
+                  } }
+                >
+                  <div data-testid="product">
+                    <img src={ thumbnail } alt={ title } />
+                    <span>{ title }</span>
+                    <span>{ price }</span>
+                  </div>
+                </Link>
+                <button
+                  type="button"
+                  data-testid="product-add-to-cart"
+                  onClick={ () => addToCart(prod) }
+                >
+                  Adicionar ao Carrinho
+                </button>
+              </div>
+            );
+          })
         ) }
         <Link data-testid="shopping-cart-button" to="/cart">
           Carrinho
