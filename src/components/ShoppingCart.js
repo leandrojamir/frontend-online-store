@@ -31,7 +31,6 @@ class ShoppingCart extends React.Component {
             <p data-testid="shopping-cart-product-quantity">
               { this.countProducts(id) }
             </p>
-            { console.log(products) }
           </div>
         ))
       )
