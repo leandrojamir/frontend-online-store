@@ -28,7 +28,6 @@ class DetailedProduct extends React.Component {
 
     render() {
       const { productDetail } = this.state;
-      console.log(productDetail);
       return (
         <section>
           <h1 data-testid="product-detail-name">
