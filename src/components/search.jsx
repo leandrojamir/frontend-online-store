@@ -62,9 +62,8 @@ class Search extends React.Component {
           <h1>Nenhum produto foi encontrado</h1>) }
         { listProducts.length > 0 && (
           listProducts.map(({ id, price, title, thumbnail }) => (
-            <>
+            <div  key={ id }>
               <Link
-                key={ id }
                 data-testid="product-detail-link"
                 to={ {
                   pathname: `/detailedProduct/${id}`,
