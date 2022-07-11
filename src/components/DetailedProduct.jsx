@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
@@ -27,15 +28,27 @@ class DetailedProduct extends React.Component {
     }
 
     render() {
-      const { productDetail } = this.state;
+      const { productDetail: { title, thumbnail, id, price } } = this.state;
+      const { addToCart } = this.props;
+      /* console.log(title, thumbnail, id); */
       return (
         <section>
           <h1 data-testid="product-detail-name">
-            {productDetail.title}
+            {title}
           </h1>
-          <p>{productDetail.price}</p>
-          <img src={ productDetail.thumbnail } alt={ productDetail.title } />
+          <p>{price}</p>
+          <img src={ thumbnail } alt={ title } />
+          <button
+            data-testid="product-detail-add-to-cart"
+            type="button"
+            onClick={ () => addToCart({ title, id }) }
+          >
+            Adicicionar ao Carrinho
 
+          </button>
+          <Link data-testid="shopping-cart-button" to="/cart">
+            Carrinho
+          </Link>
         </section>
       );
     }
@@ -51,6 +64,7 @@ DetailedProduct.propTypes = {
       search: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default DetailedProduct;
