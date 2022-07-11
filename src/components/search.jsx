@@ -84,7 +84,7 @@ class Search extends React.Component {
               >
                 Adicionar ao Carrinho
               </button>
-            </>
+            </div>
           ))
         ) }
         <Link data-testid="shopping-cart-button" to="/cart">
