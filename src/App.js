@@ -39,7 +39,13 @@ class App extends React.Component {
             removeCart={ this.removeCart }
           />) }
         />
-        <Route path="/detailedProduct/:id" component={ DetailedProduct } />
+        <Route
+          path="/detailedProduct/:id"
+          render={ (props) => (<DetailedProduct
+            { ...props }
+            addToCart={ this.addToCart }
+          />) }
+        />
       </BrowserRouter>
     );
   }
