@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
 import Search from './components/search';
 import ShoppingCart from './components/ShoppingCart';
-import { getProductsFromCategoryAndQuery } from './services/api';
+// import { getProductsFromCategoryAndQuery } from './services/api';
 import DetailedProduct from './components/DetailedProduct';
 
 class App extends React.Component {
@@ -11,10 +11,10 @@ class App extends React.Component {
     this.state = { cart: [] };
   }
 
-  addToCart = async ({ title, id }) => {
-    const { results } = await getProductsFromCategoryAndQuery('', title);
-    const product = results.find((result) => result.id === id);
-    this.setState(({ cart }) => ({ cart: [...cart, product] }));
+  addToCart = async (prod) => {
+    // const { results } = await getProductsFromCategoryAndQuery('', title);
+    // const product = results.find((result) => result.id === id);
+    this.setState(({ cart }) => ({ cart: [...cart, prod] }));
   }
 
   removeCart = (id) => {
