@@ -10,13 +10,14 @@ class ShoppingCart extends React.Component {
 
   productsInCart = () => {
     const { cart } = this.props;
-    const products = cart.reduce((acc, curr) => (
-      (this.countProducts(curr.id) > 1) ? acc : [acc, curr]));
-    return (products.length > 0) ? products : cart;
+    const ids = cart.map(({ id }) => id);
+    const products = cart.filter((product, index) => ids.indexOf(product.id) === index);
+    return products;
   }
 
   render() {
     const { cart } = this.props;
+    const products = this.productsInCart();
 
     return (
       cart.length === 0 ? (
@@ -24,12 +25,13 @@ class ShoppingCart extends React.Component {
           Seu carrinho está vazio
         </p>
       ) : (
-        this.productsInCart().map(({ title, id }) => (
+        products.map(({ title, id }) => (
           <div key={ id }>
             <p data-testid="shopping-cart-product-name">{ title }</p>
             <p data-testid="shopping-cart-product-quantity">
               { this.countProducts(id) }
             </p>
+            { console.log(products) }
           </div>
         ))
       )
