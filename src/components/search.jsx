@@ -62,27 +62,29 @@ class Search extends React.Component {
           <h1>Nenhum produto foi encontrado</h1>) }
         { listProducts.length > 0 && (
           listProducts.map(({ id, price, title, thumbnail }) => (
-            <Link
-              key={ id }
-              data-testid="product-detail-link"
-              to={ {
-                pathname: `/detailedProduct/${id}`,
-                search: title,
-              } }
-            >
-              <div data-testid="product">
-                <img src={ thumbnail } alt={ title } />
-                <span>{ title }</span>
-                <span>{ price }</span>
-                <button
-                  type="button"
-                  data-testid="product-add-to-cart"
-                  onClick={ () => addToCart({ title, id }) }
-                >
-                  Adicionar ao Carrinho
-                </button>
-              </div>
-            </Link>
+            <>
+              <Link
+                key={ id }
+                data-testid="product-detail-link"
+                to={ {
+                  pathname: `/detailedProduct/${id}`,
+                  search: title,
+                } }
+              >
+                <div data-testid="product">
+                  <img src={ thumbnail } alt={ title } />
+                  <span>{ title }</span>
+                  <span>{ price }</span>
+                </div>
+              </Link>
+              <button
+                type="button"
+                data-testid="product-add-to-cart"
+                onClick={ () => addToCart({ title, id }) }
+              >
+                Adicionar ao Carrinho
+              </button>
+            </>
           ))
         ) }
         <Link data-testid="shopping-cart-button" to="/cart">
