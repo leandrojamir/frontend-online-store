@@ -3,6 +3,7 @@ import { Route, BrowserRouter } from 'react-router-dom';
 import Search from './components/search';
 import ShoppingCart from './components/ShoppingCart';
 import { getProductsFromCategoryAndQuery } from './services/api';
+import DetailedProduct from './components/DetailedProduct';
 
 class App extends React.Component {
   constructor() {
@@ -22,11 +23,8 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Route exact path="/" render={ () => <Search addToCart={ this.addToCart } /> } />
-        <Route
-          path="/cart"
-          render={ () => (
-            <ShoppingCart cart={ cart } addToCart={ this.addToCart } />) }
-        />
+        <Route path="/cart" render={ () => <ShoppingCart cart={ cart } /> } />
+        <Route path="/detailedProduct/:id" component={ DetailedProduct } />
       </BrowserRouter>
     );
   }
