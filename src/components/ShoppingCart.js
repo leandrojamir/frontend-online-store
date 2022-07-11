@@ -16,7 +16,7 @@ class ShoppingCart extends React.Component {
   }
 
   render() {
-    const { cart } = this.props;
+    const { cart, addToCart, removeCart } = this.props;
     const products = this.productsInCart();
 
     return (
@@ -31,6 +31,22 @@ class ShoppingCart extends React.Component {
             <p data-testid="shopping-cart-product-quantity">
               { this.countProducts(id) }
             </p>
+            <button
+              onClick={ () => (addToCart({ title, id })) }
+              id={ id }
+              data-testid="product-increase-quantity"
+              type="button"
+            >
+              +1
+            </button>
+            <button
+              onClick={ () => (removeCart(id)) }
+              id={ id }
+              data-testid="product-decrease-quantity"
+              type="button"
+            >
+              -1
+            </button>
           </div>
         ))
       )
@@ -45,6 +61,8 @@ ShoppingCart.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
+  addToCart: PropTypes.func.isRequired,
+  removeCart: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;
