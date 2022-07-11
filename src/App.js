@@ -19,7 +19,10 @@ class App extends React.Component {
 
   removeCart = (id) => {
     const { cart } = this.state;
-    const index = cart.findIndex((product) => product.id === id);
+    // Tá sendo apagado o primeiro item do array, de forma que uma hora ele inverte a ordem dos itens na tela
+    // Tendando usar reverse para inverter a ordem quando criar o index e assim apagar o ultimo item do array
+    // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse
+    const index = cart.reverse().findIndex((product) => product.id === id);
     const removeProduct = cart.splice(index, 1);
     const newCart = cart.filter((product) => product !== removeProduct);
     this.setState({ cart: newCart });
