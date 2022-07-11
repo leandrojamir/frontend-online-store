@@ -3,6 +3,7 @@ import { Route, BrowserRouter } from 'react-router-dom';
 import Search from './components/search';
 import ShoppingCart from './components/ShoppingCart';
 import { getProductsFromCategoryAndQuery } from './services/api';
+import DetailedProduct from './components/DetailedProduct';
 
 class App extends React.Component {
   constructor() {
@@ -16,6 +17,14 @@ class App extends React.Component {
     this.setState(({ cart }) => ({ cart: [...cart, product] }));
   }
 
+  removeCart = (id) => {
+    const { cart } = this.state;
+    const index = cart.findIndex((product) => product.id === id);
+    const removeProduct = cart.splice(index, 1);
+    const newCart = cart.filter((product) => product !== removeProduct);
+    this.setState({ cart: newCart });
+  }
+
   render() {
     const { cart } = this.state;
 
@@ -24,9 +33,13 @@ class App extends React.Component {
         <Route exact path="/" render={ () => <Search addToCart={ this.addToCart } /> } />
         <Route
           path="/cart"
-          render={ () => (
-            <ShoppingCart cart={ cart } addToCart={ this.addToCart } />) }
+          render={ () => (<ShoppingCart
+            cart={ cart }
+            addToCart={ this.addToCart }
+            removeCart={ this.removeCart }
+          />) }
         />
+        <Route path="/detailedProduct/:id" component={ DetailedProduct } />
       </BrowserRouter>
     );
   }

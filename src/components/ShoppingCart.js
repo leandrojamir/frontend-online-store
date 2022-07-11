@@ -10,22 +10,14 @@ class ShoppingCart extends React.Component {
 
   productsInCart = () => {
     const { cart } = this.props;
-    const products = cart.reduce((acc, curr) => (
-      (this.countProducts(curr.id) > 1) ? acc : [acc, curr]));
-    return (products.length > 0) ? products : cart;
+    const ids = cart.map(({ id }) => id);
+    const products = cart.filter((product, index) => ids.indexOf(product.id) === index);
+    return products;
   }
 
-  // exemplo const newState = state.filter((data) => data.id !== id)
-  // se quebrar a pagina, comenta da linha 21 a 25 e alinha 43
-
-  // removeCart = () => {
-  //   const { cart } = this.props;
-  //   const products = cart.filter((data) => data.title !== title);
-  //   return (products.length > 0) ? products : cart;
-  // }
-
   render() {
-    const { cart, addToCart } = this.props;
+    const { cart, addToCart, removeCart } = this.props;
+    const products = this.productsInCart();
 
     return (
       cart.length === 0 ? (
@@ -33,20 +25,12 @@ class ShoppingCart extends React.Component {
           Seu carrinho está vazio
         </p>
       ) : (
-        this.productsInCart().map(({ title, id }) => (
+        products.map(({ title, id }) => (
           <div key={ id }>
             <p data-testid="shopping-cart-product-name">{ title }</p>
             <p data-testid="shopping-cart-product-quantity">
               { this.countProducts(id) }
             </p>
-            <button
-              // onClick={ () => (removeCart({ title })) }
-              id={ id }
-              data-testid="product-decrease-quantity"
-              type="button"
-            >
-              -1
-            </button>
             <button
               onClick={ () => (addToCart({ title, id })) }
               id={ id }
@@ -54,6 +38,14 @@ class ShoppingCart extends React.Component {
               type="button"
             >
               +1
+            </button>
+            <button
+              onClick={ () => (removeCart(id)) }
+              id={ id }
+              data-testid="product-decrease-quantity"
+              type="button"
+            >
+              -1
             </button>
           </div>
         ))
@@ -63,7 +55,6 @@ class ShoppingCart extends React.Component {
 }
 
 ShoppingCart.propTypes = {
-  // https://stackoverflow.com/questions/32325912/react-proptype-array-with-shape
   cart: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -71,6 +62,7 @@ ShoppingCart.propTypes = {
     }).isRequired,
   ).isRequired,
   addToCart: PropTypes.func.isRequired,
+  removeCart: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;
