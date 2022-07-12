@@ -49,11 +49,10 @@ class ShoppingCart extends React.Component {
               >
                 -1
               </button>
-            </div>
             <Link data-testid="checkout-products" to="/Checkout">
               finalizar  compra
             </Link>
-          </>
+          </div>
 
         ))
       )
