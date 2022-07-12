@@ -4,6 +4,7 @@ import Search from './components/search';
 import ShoppingCart from './components/ShoppingCart';
 // import { getProductsFromCategoryAndQuery } from './services/api';
 import DetailedProduct from './components/DetailedProduct';
+import Checkout from './components/checkout';
 
 class App extends React.Component {
   constructor() {
@@ -48,6 +49,10 @@ class App extends React.Component {
             { ...props }
             addToCart={ this.addToCart }
           />) }
+        />
+        <Route
+          path="/Checkout"
+          component={ Checkout }
         />
       </BrowserRouter>
     );

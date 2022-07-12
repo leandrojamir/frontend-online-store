@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class ShoppingCart extends React.Component {
@@ -26,28 +27,34 @@ class ShoppingCart extends React.Component {
         </p>
       ) : (
         products.map(({ title, id }) => (
-          <div key={ id }>
-            <p data-testid="shopping-cart-product-name">{ title }</p>
-            <p data-testid="shopping-cart-product-quantity">
-              { this.countProducts(id) }
-            </p>
-            <button
-              onClick={ () => (addToCart({ title, id })) }
-              id={ id }
-              data-testid="product-increase-quantity"
-              type="button"
-            >
-              +1
-            </button>
-            <button
-              onClick={ () => (removeCart(id)) }
-              id={ id }
-              data-testid="product-decrease-quantity"
-              type="button"
-            >
-              -1
-            </button>
-          </div>
+          <>
+            <div key={ id }>
+              <p data-testid="shopping-cart-product-name">{ title }</p>
+              <p data-testid="shopping-cart-product-quantity">
+                { this.countProducts(id) }
+              </p>
+              <button
+                onClick={ () => (addToCart({ title, id })) }
+                id={ id }
+                data-testid="product-increase-quantity"
+                type="button"
+              >
+                +1
+              </button>
+              <button
+                onClick={ () => (removeCart(id)) }
+                id={ id }
+                data-testid="product-decrease-quantity"
+                type="button"
+              >
+                -1
+              </button>
+            </div>
+            <Link data-testid="checkout-products" to="/Checkout">
+              finalizar  compra
+            </Link>
+          </>
+
         ))
       )
     );
