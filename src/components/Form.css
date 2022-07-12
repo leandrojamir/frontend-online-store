@@ -5,8 +5,8 @@
 .star-icon {
   border: 1px solid white;
   color: #ffe500;
-  list-style-type: none;
   cursor: pointer;
+  list-style-type: none;
   font-size: 40px;
 
   /* alterar o tamanho das estrelas */
