@@ -9,6 +9,7 @@ class CartElement extends React.Component {
   //   this.fetchProduct(id, search);
   // }
   componentDidMount() {
+    this.cartLenght();
     this.loadCartLenght();
   }
 
