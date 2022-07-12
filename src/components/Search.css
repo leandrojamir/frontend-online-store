@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.cabecalho {
+  background-color: rgb(171, 175, 172);
+  display: flex;
+  justify-content: space-between;
+  max-height: 150px;
+  padding: 20px;
+}
+
+.busca {
+  color: rgb(21, 56, 1);
+  font-size: 15px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.carrinho {
+  color: rgb(230, 230, 230);
+  font-size: 15px;
+  font-weight: 400;
+  text-align: right;
+}
+
