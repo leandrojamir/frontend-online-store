@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class CartElement extends React.Component {
-
   // componentDidMount() {
   //   const { match: { params: { id } } } = this.props;
   //   const { location: { search } } = this.props;
   //   this.fetchProduct(id, search);
   // }
   componentDidMount() {
-    const { cart.length } = 
-    cthis.setState(this.loadCartLenght)
+    this.loadCartLenght();
   }
 
   loadCartLenght = () => {
@@ -19,7 +17,10 @@ class CartElement extends React.Component {
   }
 
   cartLenght = () => {
-    localStorage.setItem('amount', cart.length);
+    const { cart } = this.props;
+    const saveAmount = cart.length;
+    localStorage.setItem('amount', saveAmount);
+    console.log(saveAmount);
   }
 
   render() {
