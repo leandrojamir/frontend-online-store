@@ -62,7 +62,7 @@ class Search extends React.Component {
           <h1>Nenhum produto foi encontrado</h1>) }
         { listProducts.length > 0 && (
           listProducts.map((prod) => {
-            const { id, price, title, thumbnail } = prod;
+            const { id, price, title, thumbnail, shipping } = prod;
             return (
               <div key={ id }>
                 <Link
@@ -76,6 +76,8 @@ class Search extends React.Component {
                     <img src={ thumbnail } alt={ title } />
                     <span>{ title }</span>
                     <span>{ price }</span>
+                    { (shipping.free_shipping) && (
+                      <span data-testid="free-shipping">Frete Grátis</span>) }
                   </div>
                 </Link>
                 <button
