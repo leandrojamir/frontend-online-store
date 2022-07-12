@@ -9,7 +9,6 @@ class Search extends React.Component {
     super();
     this.state = {
       listProducts: [],
-      // listCategory: [],
       query: '',
       searches: 0,
     };

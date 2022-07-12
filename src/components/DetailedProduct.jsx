@@ -112,8 +112,6 @@ DetailedProduct.propTypes = {
     }).isRequired,
   ).isRequired,
   addToCart: PropTypes.func.isRequired,
-/*   getEvaluations: PropTypes.func.isRequired,
-  setEvaluations: PropTypes.func.isRequired, */
 };
 
 export default DetailedProduct;
