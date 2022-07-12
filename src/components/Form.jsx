@@ -1,85 +1,75 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Form.css';
 
 class Form extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      email: '',
-      rating1: false,
-      rating2: false,
-      rating3: false,
-      rating4: false,
-      rating5: false,
-      textarea: '',
-    };
-  }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    localStorage.setItem('evaluation', JSON.stringify(this.state));
-  }
-
-  handleChange = ({ target }) => {
-    const { name } = target;
-    const value = (target.type === 'checkbox') ? target.checked : target.value;
-    this.setState({ [name]: value });
-  }
-
   render() {
-    const { getEvaluation } = this.props;
+    const { handleChange, handleSubmit, handleRating } = this.props;
+
     return (
-      <form onSubmit={ this.handleSubmit }>
+      <form onSubmit={ handleSubmit }>
         <label htmlFor="product-detail-email">
           <input
             type="email"
             data-testid="product-detail-email"
             id="product-detail-email"
-            onChange={ this.handleChange }
+            onChange={ handleChange }
             name="email"
           />
         </label>
         <input
           type="checkbox"
+          className="star-icon"
           data-testid="1-rating"
-          onChange={ this.handleChange }
-          name="rating1"
+          onChange={ handleRating }
+          name="1"
         />
         <input
           type="checkbox"
+          className="star-icon"
           data-testid="2-rating"
-          onChange={ this.handleChange }
-          name="rating2"
+          onChange={ handleRating }
+          name="2"
         />
         <input
           type="checkbox"
+          className="star-icon"
           data-testid="3-rating"
-          onChange={ this.handleChange }
-          name="rating3"
+          onChange={ handleRating }
+          name="3"
         />
         <input
           type="checkbox"
+          className="star-icon"
           data-testid="4-rating"
-          onChange={ this.handleChange }
-          name="rating4"
+          onChange={ handleRating }
+          name="4"
         />
         <input
           type="checkbox"
+          className="star-icon"
           data-testid="5-rating"
-          onChange={ this.handleChange }
-          name="rating5"
+          onChange={ handleRating }
+          name="5"
         />
+        {/* <ul className="evaluation">
+          <li className="star-icon selected" data-evaluation="1" />
+          <li className="star-icon" data-evaluation="2" />
+          <li className="star-icon" data-evaluation="3" />
+          <li className="star-icon" data-evaluation="4" />
+          <li className="star-icon" data-evaluation="5" />
+        </ul> */}
         <label htmlFor="product-detail-evaluation">
           <textarea
             data-testid="product-detail-evaluation"
             id="product-detail-evaluation"
             name="textarea"
+            onChange={ handleChange }
           />
         </label>
         <button
           type="submit"
           data-testid="submit-review-btn"
-          onClick={ getEvaluation }
         >
           Enviar
         </button>
@@ -89,7 +79,9 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-  getEvaluation: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  handleRating: PropTypes.func.isRequired,
 };
 
 export default Form;

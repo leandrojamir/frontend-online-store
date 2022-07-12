@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Form from './Form';
+import Evaluation from './Evaluation';
 
 /* import PropTypes from 'prop-types'; */
 
@@ -11,15 +12,28 @@ class DetailedProduct extends React.Component {
     super();
     this.state = {
       productDetail: {},
-      evaluation: {},
+      evaluations: [],
+      email: '',
+      rating: '0',
+      textarea: '',
     };
   }
 
   componentDidMount() {
-    const { match: { params: { id } } } = this.props;
-    const { location: { search } } = this.props;
+    const {
+      match: { params: { id } },
+      location: { search },
+      getEvaluations,
+    } = this.props;
+    const { productDetail } = this.state;
     this.fetchProduct(id, search);
-    this.getEvaluation();
+    this.setState({ evaluations: getEvaluations(productDetail.id) });
+  }
+
+  componentWillUnmount() {
+    const { evaluations } = this.state;
+    const { setEvaluations } = this.props;
+    setEvaluations(evaluations);
   }
 
     fetchProduct = async (id, title) => {
@@ -30,13 +44,26 @@ class DetailedProduct extends React.Component {
       });
     }
 
-    getEvaluation = () => {
-      const evaluation = JSON.parse(localStorage.getItem('evaluation'));
-      this.setState({ evaluation });
+    handleSubmit = (event) => {
+      event.preventDefault();
+      const { email, rating, textarea } = this.state;
+      this.setState(({ evaluations }) => (
+        { evaluations: [...evaluations, { email, rating, textarea }] }));
+    }
+
+    handleChange = ({ target }) => {
+      const { name } = target;
+      const value = (target.type === 'checkbox') ? target.checked : target.value;
+      this.setState({ [name]: value });
+    }
+
+    handleRating = ({ target }) => {
+      const { name } = target;
+      this.setState({ rating: name });
     }
 
     render() {
-      const { productDetail: { title, thumbnail, id, price }, evaluation } = this.state;
+      const { productDetail: { title, thumbnail, id, price }, evaluations } = this.state;
       const { addToCart } = this.props;
       /* console.log(title, thumbnail, id); */
       return (
@@ -57,12 +84,19 @@ class DetailedProduct extends React.Component {
           <Link data-testid="shopping-cart-button" to="/cart">
             Carrinho
           </Link>
-          <Form getEvaluation={ this.getEvaluation } />
-          <div>
-            <p>{ evaluation.email }</p>
-            <p>{ evaluation.rating5 }</p>
-            <p>{ evaluation.textarea }</p>
-          </div>
+          <Form
+            handleChange={ this.handleChange }
+            handleSubmit={ this.handleSubmit }
+            handleRating={ this.handleRating }
+          />
+          { evaluations.map(({ email, rating, textarea }) => (
+            <Evaluation
+              key={ email }
+              email={ email }
+              rating={ rating }
+              textarea={ textarea }
+            />
+          )) }
         </section>
       );
     }
@@ -79,6 +113,8 @@ DetailedProduct.propTypes = {
     }).isRequired,
   ).isRequired,
   addToCart: PropTypes.func.isRequired,
+  getEvaluations: PropTypes.func.isRequired,
+  setEvaluations: PropTypes.func.isRequired,
 };
 
 export default DetailedProduct;
