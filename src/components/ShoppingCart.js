@@ -16,6 +16,13 @@ class ShoppingCart extends React.Component {
     return products;
   }
 
+  checkAvailability = (id) => {
+    const { cart } = this.props;
+    const available = cart.find((product) => product.id === id).available_quantity;
+    const quantity = this.countProducts(id);
+    return (quantity === available);
+  }
+
   render() {
     const { cart, addToCart, removeCart } = this.props;
     const products = this.productsInCart();
@@ -37,6 +44,7 @@ class ShoppingCart extends React.Component {
               id={ id }
               data-testid="product-increase-quantity"
               type="button"
+              disabled={ this.checkAvailability(id) }
             >
               +1
             </button>
