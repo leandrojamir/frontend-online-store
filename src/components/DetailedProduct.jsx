@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
-/* import PropTypes from 'prop-types'; */
-
 class DetailedProduct extends React.Component {
   constructor() {
     super();
@@ -30,7 +28,7 @@ class DetailedProduct extends React.Component {
     render() {
       const { productDetail: { title, thumbnail, id, price } } = this.state;
       const { addToCart } = this.props;
-      /* console.log(title, thumbnail, id); */
+
       return (
         <section>
           <h1 data-testid="product-detail-name">
