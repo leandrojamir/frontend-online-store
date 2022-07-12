@@ -9,7 +9,7 @@ import Checkout from './components/checkout';
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { cart: [], evaluations: [] };
+    this.state = { cart: [] };
   }
 
   addToCart = async (prod) => {
@@ -27,17 +27,6 @@ class App extends React.Component {
     const removeProduct = cart.splice(index, 1);
     const newCart = cart.filter((product) => product !== removeProduct);
     this.setState({ cart: newCart });
-  }
-
-  setEvaluations = (newEval) => {
-    this.setState((prevState) => (
-      { evaluations: [...prevState.evaluations, ...newEval] }));
-  }
-
-  getEvaluations = (id) => {
-    const { evaluations } = this.state;
-    const filterId = evaluations.filter((evaluation) => evaluation.id === id);
-    return filterId;
   }
 
   render() {

@@ -5,8 +5,6 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 import Form from './Form';
 import Evaluation from './Evaluation';
 
-/* import PropTypes from 'prop-types'; */
-
 class DetailedProduct extends React.Component {
   constructor() {
     super();
@@ -23,17 +21,12 @@ class DetailedProduct extends React.Component {
     const {
       match: { params: { id } },
       location: { search },
-      getEvaluations,
     } = this.props;
-    const { productDetail } = this.state;
     this.fetchProduct(id, search);
-    this.setState({ evaluations: getEvaluations(productDetail.id) });
-  }
-
-  componentWillUnmount() {
-    const { evaluations } = this.state;
-    const { setEvaluations } = this.props;
-    setEvaluations(evaluations);
+    const evaluations = JSON.parse(localStorage.getItem(`${id}evaluations`));
+    if (evaluations) {
+      this.setState({ evaluations });
+    }
   }
 
     fetchProduct = async (id, title) => {
@@ -44,11 +37,17 @@ class DetailedProduct extends React.Component {
       });
     }
 
+    setEvaluations = () => {
+      const { evaluations, productDetail: { id } } = this.state;
+      localStorage.setItem(`${id}evaluations`, JSON.stringify(evaluations));
+    }
+
     handleSubmit = (event) => {
       event.preventDefault();
       const { email, rating, textarea } = this.state;
       this.setState(({ evaluations }) => (
-        { evaluations: [...evaluations, { email, rating, textarea }] }));
+        { evaluations: [...evaluations, { email, rating, textarea }] }),
+      async () => { await this.setEvaluations(); });
     }
 
     handleChange = ({ target }) => {
@@ -65,7 +64,7 @@ class DetailedProduct extends React.Component {
     render() {
       const { productDetail: { title, thumbnail, id, price }, evaluations } = this.state;
       const { addToCart } = this.props;
-      /* console.log(title, thumbnail, id); */
+
       return (
         <section>
           <h1 data-testid="product-detail-name">
@@ -113,8 +112,8 @@ DetailedProduct.propTypes = {
     }).isRequired,
   ).isRequired,
   addToCart: PropTypes.func.isRequired,
-  getEvaluations: PropTypes.func.isRequired,
-  setEvaluations: PropTypes.func.isRequired,
+/*   getEvaluations: PropTypes.func.isRequired,
+  setEvaluations: PropTypes.func.isRequired, */
 };
 
 export default DetailedProduct;
