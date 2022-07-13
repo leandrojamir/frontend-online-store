@@ -2,31 +2,47 @@ import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
 import Search from './components/search';
 import ShoppingCart from './components/ShoppingCart';
-// import { getProductsFromCategoryAndQuery } from './services/api';
 import DetailedProduct from './components/DetailedProduct';
 import Checkout from './components/checkout';
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { cart: [] };
+    this.state = {
+      cart: [],
+      savedItems: [],
+    };
+  }
+
+  componentDidMount() {
+    const loadCart = JSON.parse(localStorage.getItem('cartList'));
+    if (loadCart) {
+      this.setState({ cart: loadCart });
+    }
+  }
+
+  saveLocalStorage = (savedItems) => {
+    localStorage.setItem('cartList', JSON.stringify(savedItems));
   }
 
   addToCart = async (prod) => {
-    // const { results } = await getProductsFromCategoryAndQuery('', title);
-    // const product = results.find((result) => result.id === id);
     this.setState(({ cart }) => ({ cart: [...cart, prod] }));
+    const { savedItems, cart } = this.state;
+    savedItems.push({ cart });
+    this.setState({ savedItems });
+    this.saveLocalStorage(savedItems);
   }
 
   removeCart = (id) => {
     const { cart } = this.state;
-    // Tá sendo apagado o primeiro item do array, de forma que uma hora ele inverte a ordem dos itens na tela
-    // Tendando usar reverse para inverter a ordem quando criar o index e assim apagar o ultimo item do array
-    // https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse
     const index = cart.reverse().findIndex((product) => product.id === id);
     const removeProduct = cart.splice(index, 1);
     const newCart = cart.filter((product) => product !== removeProduct);
     this.setState({ cart: newCart });
+    const { savedItems } = this.state;
+    savedItems.push({ cart });
+    this.setState({ savedItems });
+    this.saveLocalStorage(savedItems);
   }
 
   render() {
@@ -34,7 +50,14 @@ class App extends React.Component {
 
     return (
       <BrowserRouter>
-        <Route exact path="/" render={ () => <Search addToCart={ this.addToCart } /> } />
+        <Route
+          exact
+          path="/"
+          render={ () => (<Search
+            addToCart={ this.addToCart }
+            cart={ cart }
+          />) }
+        />
         <Route
           path="/cart"
           render={ () => (<ShoppingCart
@@ -48,6 +71,7 @@ class App extends React.Component {
           render={ (props) => (<DetailedProduct
             { ...props }
             addToCart={ this.addToCart }
+            cart={ cart }
             setEvaluations={ this.setEvaluations }
             getEvaluations={ this.getEvaluations }
           />) }

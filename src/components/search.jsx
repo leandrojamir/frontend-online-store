@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Category from './category';
+import CartElement from './CartElement';
 
 class Search extends React.Component {
   constructor() {
@@ -40,7 +41,7 @@ class Search extends React.Component {
 
   render() {
     const { listProducts, searches } = this.state;
-    const { addToCart } = this.props;
+    const { addToCart, cart } = this.props;
 
     return (
       <div>
@@ -90,9 +91,7 @@ class Search extends React.Component {
             );
           })
         ) }
-        <Link data-testid="shopping-cart-button" to="/cart">
-          Carrinho
-        </Link>
+        <CartElement cart={ cart } />
       </div>
     );
   }
@@ -100,6 +99,12 @@ class Search extends React.Component {
 
 Search.propTypes = {
   addToCart: PropTypes.func.isRequired,
+  cart: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    }).isRequired,
+  ).isRequired,
 };
 
 export default Search;
