@@ -48,6 +48,8 @@ class App extends React.Component {
           render={ (props) => (<DetailedProduct
             { ...props }
             addToCart={ this.addToCart }
+            setEvaluations={ this.setEvaluations }
+            getEvaluations={ this.getEvaluations }
           />) }
         />
         <Route
