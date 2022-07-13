@@ -39,6 +39,26 @@ class Search extends React.Component {
     }));
   }
 
+  comparePrices = (a, b, option) => {
+    const down = -1;
+    const up = 1;
+    const sortDown = (option === 'Menor preço') ? down : up;
+    const sortUp = (option !== 'Maior preço') ? up : down;
+    if (a.price < b.price) {
+      return sortDown;
+    }
+    if (a.price > b.price) {
+      return sortUp;
+    } return 0;
+  }
+
+  sortPrice = ({ target: { value } }) => {
+    const { listProducts } = this.state;
+    const option = value;
+    const sortedList = listProducts.sort((a, b) => this.comparePrices(a, b, option));
+    this.setState({ listProducts: sortedList });
+  }
+
   render() {
     const { listProducts, searches } = this.state;
     const { addToCart, cart } = this.props;
@@ -54,6 +74,15 @@ class Search extends React.Component {
         >
           Pesquisar
         </button>
+        <label htmlFor="price-sorter">
+          Ordenar por
+          {' '}
+          <select id="price-sorter" onChange={ this.sortPrice }>
+            <option>Menor preço</option>
+            <option>Maior preço</option>
+          </select>
+        </label>
+
         { listProducts.length === 0 && searches === 0 && (
           <h1 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
