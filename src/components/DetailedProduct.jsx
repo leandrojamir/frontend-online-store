@@ -27,7 +27,6 @@ class DetailedProduct extends React.Component {
     if (evaluations) {
       this.setState({ evaluations });
     }
-    // this.resetAmount();
   }
 
     fetchProduct = async (id, title) => {
@@ -61,13 +60,6 @@ class DetailedProduct extends React.Component {
       const { name } = target;
       this.setState({ rating: name });
     }
-
-    // resetAmount = () => {
-    //   const loadAmount = localStorage.getItem('amount');
-    //   if (loadAmount === null) {
-    //     localStorage.setItem('amount', 0);
-    //   }
-    // }
 
     render() {
       const { productDetail: { title, thumbnail, id, price }, evaluations } = this.state;
