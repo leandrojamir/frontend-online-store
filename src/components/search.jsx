@@ -16,22 +16,6 @@ class Search extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.loadCartLenght();
-    this.cartLenght();
-  }
-
-  loadCartLenght = () => {
-    localStorage.getItem('amount');
-  }
-
-  cartLenght = () => {
-    const { cart } = this.props;
-    const saveAmount = cart.length;
-    localStorage.setItem('amount', saveAmount);
-    console.log(saveAmount);
-  }
-
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({

@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import CartElement from './CartElement';
 
-/* import PropTypes from 'prop-types'; */
-
 class DetailedProduct extends React.Component {
   constructor() {
     super();
@@ -30,7 +28,6 @@ class DetailedProduct extends React.Component {
     render() {
       const { productDetail: { title, thumbnail, id, price } } = this.state;
       const { addToCart, cart } = this.props;
-      /* console.log(title, thumbnail, id); */
       return (
         <section>
           <h1 data-testid="product-detail-name">
@@ -44,7 +41,6 @@ class DetailedProduct extends React.Component {
             onClick={ () => addToCart({ title, id }) }
           >
             Adicicionar ao Carrinho
-
           </button>
           <CartElement cart={ cart } />
         </section>
