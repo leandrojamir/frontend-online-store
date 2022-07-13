@@ -8,14 +8,29 @@ import Checkout from './components/checkout';
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { cart: [] };
+    this.state = {
+      cart: [],
+      savedItems: [],
+    };
+  }
+
+  componentDidMount() {
+    const loadCart = JSON.parse(localStorage.getItem('cartList'));
+    if (loadCart) {
+      this.setState({ cart: loadCart });
+    }
+  }
+
+  saveLocalStorage = (savedItems) => {
+    localStorage.setItem('cartList', JSON.stringify(savedItems));
   }
 
   addToCart = async (prod) => {
     this.setState(({ cart }) => ({ cart: [...cart, prod] }));
-    // let accountant = localStorage.getItem('amount');
-    // accountant = parseInt(accountant, 10) + 1;
-    // localStorage.setItem('amount', accountant);
+    const { savedItems, cart } = this.state;
+    savedItems.push({ cart });
+    this.setState({ savedItems });
+    this.saveLocalStorage(savedItems);
   }
 
   removeCart = (id) => {
@@ -24,9 +39,10 @@ class App extends React.Component {
     const removeProduct = cart.splice(index, 1);
     const newCart = cart.filter((product) => product !== removeProduct);
     this.setState({ cart: newCart });
-    // let accountant = localStorage.getItem('amount');
-    // accountant = parseInt(accountant, 10) - 1;
-    // localStorage.setItem('amount', accountant);
+    const { savedItems } = this.state;
+    savedItems.push({ cart });
+    this.setState({ savedItems });
+    this.saveLocalStorage(savedItems);
   }
 
   render() {

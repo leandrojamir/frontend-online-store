@@ -15,6 +15,13 @@ class Search extends React.Component {
     };
   }
 
+  // componentDidMount() {
+  //   const listProducts = JSON.parse(localStorage.getItem('cartList'));
+  //   if (listProducts) {
+  //     this.setState({ listProducts });
+  //   }
+  // }
+
   handleChange = ({ target }) => {
     const { name, value } = target;
     this.setState({
