@@ -1,0 +1,29 @@
+.evaluation {
+  display: flex;
+}
+
+.star-icon {
+  border: 1px solid white;
+  color: #ffe500;
+  cursor: pointer;
+  font-size: 40px;
+  list-style-type: none;
+
+  /* alterar o tamanho das estrelas */
+}
+
+.star-icon:before {
+  content: '\2605';
+}
+
+.star-icon.ativo ~ .star-icon:before {
+  content: '\2606';
+}
+
+.evaluation:hover .star-icon:before {
+  content: '\2605';
+}
+
+.star-icon:hover ~ .star-icon:before {
+  content: '\2606';
+}
