@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom';
 import Search from './components/search';
 import ShoppingCart from './components/ShoppingCart';
-// import { getProductsFromCategoryAndQuery } from './services/api';
 import DetailedProduct from './components/DetailedProduct';
 import Checkout from './components/checkout';
 
@@ -14,6 +13,9 @@ class App extends React.Component {
 
   addToCart = async (prod) => {
     this.setState(({ cart }) => ({ cart: [...cart, prod] }));
+    // let accountant = localStorage.getItem('amount');
+    // accountant = parseInt(accountant, 10) + 1;
+    // localStorage.setItem('amount', accountant);
   }
 
   removeCart = (id) => {
@@ -22,6 +24,9 @@ class App extends React.Component {
     const removeProduct = cart.splice(index, 1);
     const newCart = cart.filter((product) => product !== removeProduct);
     this.setState({ cart: newCart });
+    // let accountant = localStorage.getItem('amount');
+    // accountant = parseInt(accountant, 10) - 1;
+    // localStorage.setItem('amount', accountant);
   }
 
   render() {
@@ -50,12 +55,9 @@ class App extends React.Component {
           render={ (props) => (<DetailedProduct
             { ...props }
             addToCart={ this.addToCart }
-<<<<<<< HEAD
             cart={ cart }
-=======
             setEvaluations={ this.setEvaluations }
             getEvaluations={ this.getEvaluations }
->>>>>>> main-group-18
           />) }
         />
         <Route

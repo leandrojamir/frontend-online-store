@@ -3,26 +3,44 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class CartElement extends React.Component {
+  // // componentDidMount() {
+  // //   const {
+  // //     match: { params: { id } },
+  // //     location: { search },
+  // //   } = this.props;
+  // //   this.fetchProduct(id, search);
+  // //   const evaluations = JSON.parse(localStorage.getItem(`${id}evaluations`));
+  // //   if (evaluations) {
+  // //     this.setState({ evaluations });
+  // //   }
+  // // }
+  // // componentDidMount() {
+  // //   this.cartLenght();
+  // //   this.loadCartLenght();
+  // // }
+
+  // // loadCartLenght = () => {
+  // //   localStorage.getItem('amount');
+  // // }
+
+  // // cartLenght = () => {
+  // //   const { cart } = this.props;
+  // //   const saveAmount = cart.length;
+  // //   localStorage.setItem('amount', saveAmount);
+  // //   console.log(saveAmount);
+  // // }
+
   // componentDidMount() {
-  //   const { match: { params: { id } } } = this.props;
-  //   const { location: { search } } = this.props;
-  //   this.fetchProduct(id, search);
+  //   this.cartLenght();
   // }
-  componentDidMount() {
-    this.cartLenght();
-    this.loadCartLenght();
-  }
 
-  loadCartLenght = () => {
-    localStorage.getItem('amount');
-  }
-
-  cartLenght = () => {
-    const { cart } = this.props;
-    const saveAmount = cart.length;
-    localStorage.setItem('amount', saveAmount);
-    console.log(saveAmount);
-  }
+  // loadAmount = () => {
+  //   const saveAmount = localStorage.getItem('amount');
+  //   if (saveAmount !== null) {
+  //     return saveAmount;
+  //   }
+  //   return 0;
+  // }
 
   render() {
     const { cart } = this.props;
@@ -32,7 +50,7 @@ class CartElement extends React.Component {
           Carrinho
           <p data-testid="shopping-cart-size">
             { cart.length }
-            {/* ou { this.pensarEmUmaFuncao } */}
+            {/* { this.cartLenght } */}
           </p>
         </Link>
       </div>
